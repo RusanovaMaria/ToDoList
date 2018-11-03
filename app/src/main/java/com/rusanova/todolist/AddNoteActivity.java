@@ -20,6 +20,11 @@ public class AddNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("");
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,6 +33,12 @@ public class AddNoteActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Fragment settingsFragment = new AddNoteSettingsFragment();
+        fragmentTransaction.add(R.id.myfragment, settingsFragment);
+        fragmentTransaction.commit();
+
     }
 
 }
