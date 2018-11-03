@@ -10,4 +10,5 @@
         <item>Note 3</item>
     </string-array>
     <string name="title_activity_add_note">AddNoteActivity</string>
+    <string name="add_note_hint">напр., записаться к парикмахеру на завтра 17.00</string>
 </resources>
