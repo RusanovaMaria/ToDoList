@@ -9,4 +9,5 @@
         <item>Note 2</item>
         <item>Note 3</item>
     </string-array>
+    <string name="title_activity_add_note">AddNoteActivity</string>
 </resources>
