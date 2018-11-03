@@ -4,4 +4,9 @@
     <string name="notes_title">Notes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="notes_test">
+        <item>Note 1</item>
+        <item>Note 2</item>
+        <item>Note 3</item>
+    </string-array>
 </resources>

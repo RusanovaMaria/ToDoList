@@ -2,6 +2,8 @@ package com.rusanova.todolist;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -60,8 +62,11 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.nav_notes:
-                                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-                                startActivity(intent);
+                                Fragment fragment = new NotesFragment();
+                                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.content_frame, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
                         }
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
