@@ -13,9 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-public class AddNoteSettingsFragment extends ListFragment {
+public class AddNoteFragment extends ListFragment {
 
-    public  AddNoteSettingsFragment() {
+    public AddNoteFragment() {
 
     }
 
