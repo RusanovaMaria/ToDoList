@@ -1,15 +1,15 @@
 package com.rusanova.todolist;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class NotesFragment extends Fragment {
         mAddFragmentRecyclerView.setAdapter(mNoteAdapter);
     }
 
-    private class NoteHolder extends RecyclerView.ViewHolder {
+    private class NoteHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private TextView mDescriptionTextView;
@@ -43,6 +43,7 @@ public class NotesFragment extends Fragment {
 
         public NoteHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.note_item_list, parent, false));
+            itemView.setOnClickListener(this);
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.note_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.note_date);
@@ -54,6 +55,18 @@ public class NotesFragment extends Fragment {
             mTitleTextView.setText(mNote.getTitle());
             mDateTextView.setText(mNote.getDate().toString());
             mDescriptionTextView.setText(mNote.getDescription());
+        }
+
+        @Override
+        public void onClick(View view) {
+            Fragment fragment = SingleNoteFragment.newInstance
+                    (mTitleTextView.getText().toString(),
+                    mDateTextView.getText().toString(),
+                    mDescriptionTextView.getText().toString());
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 

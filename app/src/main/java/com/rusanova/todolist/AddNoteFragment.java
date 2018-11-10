@@ -1,7 +1,5 @@
 package com.rusanova.todolist;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,17 +17,18 @@ public class AddNoteFragment extends ListFragment {
 
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @Override    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                          Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         setListAdapter(new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_activated_1, getResources().getStringArray(R.array.add_note_settings_test)));
-        return super.onCreateView(inflater, container, savedInstanceState);    }
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class AddNoteFragment extends ListFragment {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         Fragment fragment = this;
 
-        switch(position) {
+        switch (position) {
             case 0:
                 break;
         }
