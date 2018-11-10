@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -35,8 +36,25 @@ public class NotesFragment extends Fragment {
     }
 
     private class NoteHolder extends RecyclerView.ViewHolder {
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private TextView mDescriptionTextView;
+        private Note mNote;
+
         public NoteHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.note_item_list, parent, false));        }
+            super(inflater.inflate(R.layout.note_item_list, parent, false));
+
+            mTitleTextView = (TextView) itemView.findViewById(R.id.note_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.note_date);
+            mDescriptionTextView = (TextView) itemView.findViewById(R.id.note_description);
+        }
+
+        public void bind(Note note) {
+            mNote = note;
+            mTitleTextView.setText(mNote.getTitle());
+            mDateTextView.setText(mNote.getDate().toString());
+            mDescriptionTextView.setText(mNote.getDescription());
+        }
     }
 
     private class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
@@ -53,7 +71,8 @@ public class NotesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(NoteHolder holder, int position) {
-
+            Note note = mNotes.get(position);
+            holder.bind(note);
         }
 
         @Override

@@ -7,7 +7,7 @@ public class Note {
     private UUID mId;
     private String mTitle;
     private Date mDate;
-    private String description;
+    private String mDescription;
 
     public Note() {
         mId = UUID.randomUUID();
@@ -35,10 +35,10 @@ public class Note {
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.mDescription = description;
     }
 }

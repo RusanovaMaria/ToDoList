@@ -22,6 +22,7 @@ public class NoteLab {
        for(int i = 0; i < 30; i++) {
            Note note = new Note();
            note.setTitle("Note" + i);
+           note.setDescription("Description" + i);
            mNotes.add(note);
        }
     }
