@@ -3,9 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="8dp">
-    
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
     <TextView
         android:id="@+id/note_title"
         android:layout_width="match_parent"
@@ -21,4 +28,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Note description"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/note_change_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_change" />
+
+        <ImageButton
+            android:id="@+id/note_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete" />
+    </LinearLayout>
 </LinearLayout>

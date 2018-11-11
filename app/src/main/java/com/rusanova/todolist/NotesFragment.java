@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class NotesFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private TextView mDescriptionTextView;
+        private ImageButton deleteButton;
+        private ImageButton changeButton;
         private Note mNote;
 
         public NoteHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -48,6 +51,30 @@ public class NotesFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.note_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.note_date);
             mDescriptionTextView = (TextView) itemView.findViewById(R.id.note_description);
+            deleteButton = (ImageButton) itemView.findViewById(R.id.note_delete_button);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onDeleteButtonClick(v);
+                }
+            });
+            changeButton = (ImageButton) itemView.findViewById(R.id.note_change_button);
+            changeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onChangeButtonClick(v);
+                }
+            });
+        }
+
+        public void onDeleteButtonClick(View view)
+        {
+
+        }
+
+        public void onChangeButtonClick(View view)
+        {
+
         }
 
         public void bind(Note note) {
