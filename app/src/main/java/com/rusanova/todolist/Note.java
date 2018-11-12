@@ -1,9 +1,10 @@
 package com.rusanova.todolist;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class Note {
+public class Note implements Serializable {
     private UUID mId;
     private String mTitle;
     private Date mDate;

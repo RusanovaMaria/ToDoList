@@ -1,6 +1,9 @@
 package com.rusanova.todolist;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 public class NotesFragment extends Fragment {
+    private static final int DIALOG_REQUEST_WEIGHT = 1;
     private RecyclerView mAddFragmentRecyclerView;
     private NoteAdapter mNoteAdapter;
 
@@ -27,6 +30,25 @@ public class NotesFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case DIALOG_REQUEST_WEIGHT:
+                    boolean noteWasDeleted = data.getBooleanExtra(DeleteNoteDialogFragment.NOTE_WAS_DELETED, false);
+                    updateUIIfNoteWasDeleted(noteWasDeleted);
+                    break;
+            }
+        }
+    }
+
+    private void updateUIIfNoteWasDeleted(boolean noteWasDeleted) {
+        if (noteWasDeleted) {
+            updateUI();
+        }
     }
 
     private void updateUI() {
@@ -67,13 +89,13 @@ public class NotesFragment extends Fragment {
             });
         }
 
-        public void onDeleteButtonClick(View view)
-        {
-
+        public void onDeleteButtonClick(View view) {
+            DialogFragment deleteNoteDialogFragment = DeleteNoteDialogFragment.newInstance(mNote);
+            deleteNoteDialogFragment.setTargetFragment(NotesFragment.this, 1);
+            deleteNoteDialogFragment.show(getFragmentManager(), deleteNoteDialogFragment.getClass().getName());
         }
 
-        public void onChangeButtonClick(View view)
-        {
+        public void onChangeButtonClick(View view) {
 
         }
 
@@ -86,10 +108,10 @@ public class NotesFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Fragment fragment = SingleNoteFragment.newInstance
+            SingleNoteFragment fragment = SingleNoteFragment.newInstance
                     (mTitleTextView.getText().toString(),
-                    mDateTextView.getText().toString(),
-                    mDescriptionTextView.getText().toString());
+                            mDateTextView.getText().toString(),
+                            mDescriptionTextView.getText().toString());
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, fragment);
             fragmentTransaction.addToBackStack(null);
@@ -99,6 +121,7 @@ public class NotesFragment extends Fragment {
 
     private class NoteAdapter extends RecyclerView.Adapter<NoteHolder> {
         private List<Note> mNotes;
+
         public NoteAdapter(List<Note> notes) {
             mNotes = notes;
         }

@@ -33,10 +33,24 @@ public class NoteLab {
 
     public Note getNote(UUID id) {
         for(Note note : mNotes) {
-            if(note.getId() == id) {
+            if(note.getId().equals(id)) {
                 return note;
             }
         }
         return null;
+    }
+
+    public void deleteNote(UUID id) {
+       Note note = getNote(id);
+       if (isNotNull(note)) {
+           mNotes.remove(note);
+       }
+    }
+
+    private boolean isNotNull(Note note) {
+        if (note != null) {
+            return true;
+        }
+        return false;
     }
 }
