@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 
 public class AddNoteActivity extends AppCompatActivity {
+    public static String CHANGEABLE_NOTE = "changeable note";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +33,27 @@ public class AddNoteActivity extends AppCompatActivity {
         });
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Fragment settingsFragment = new AddNoteFragment();
+        Fragment settingsFragment = new AddNoteSettingsFragment();
         fragmentTransaction.add(R.id.myfragment, settingsFragment);
         fragmentTransaction.commit();
 
+        extractAndSetDataIfItIsPossible(savedInstanceState);
+
     }
 
+    private void extractAndSetDataIfItIsPossible(Bundle savedInstanceState) {
+        EditText noteTitle = findViewById(R.id.title_template);
+            Bundle extras = getIntent().getExtras();
+            if (isNotNull(extras)) {
+                Note changeableNote = (Note) extras.getSerializable(CHANGEABLE_NOTE);
+                noteTitle.setText(changeableNote.getTitle());
+        }
+    }
+
+    private boolean isNotNull(Object o) {
+        if(o != null) {
+            return true;
+        }
+        return false;
+    }
 }
