@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
+import java.util.UUID;
+
 public class DeleteNoteDialogFragment extends DialogFragment {
     public static final String NOTE_WAS_DELETED = "delete note";
-    public static final String NOTE = "note";
+    public static final String NOTE_ID = "note_id";
 
 
     @Override
@@ -33,11 +35,11 @@ public class DeleteNoteDialogFragment extends DialogFragment {
 
     private void deleteNote() {
         NoteLab noteLab = NoteLab.get(getActivity());
-        Note note = (Note) getArguments().getSerializable(NOTE);
-        if(note != null) {
-            noteLab.deleteNote(note.getId());
+        UUID id = (UUID) getArguments().getSerializable(NOTE_ID);
+        if(id != null) {
+            noteLab.deleteNote(id);
         } else {
-            throw new NullPointerException("Значение note равно null");
+            throw new NullPointerException("Значение id равно не определено");
         }
     }
 
@@ -47,10 +49,10 @@ public class DeleteNoteDialogFragment extends DialogFragment {
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
     }
 
-    public static DialogFragment newInstance(Note note) {
+    public static DialogFragment newInstance(UUID id) {
         DialogFragment myDialogFragment = new DeleteNoteDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(NOTE, note);
+        args.putSerializable(NOTE_ID, id);
         myDialogFragment.setArguments(args);
 
         return myDialogFragment;

@@ -77,26 +77,28 @@ public class NotesFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onDeleteButtonClick(v);
+                    onDeleteButtonClick();
                 }
             });
             changeButton = (ImageButton) itemView.findViewById(R.id.note_change_button);
             changeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onChangeButtonClick(v);
+                    onChangeButtonClick();
                 }
             });
         }
 
-        public void onDeleteButtonClick(View view) {
-            DialogFragment deleteNoteDialogFragment = DeleteNoteDialogFragment.newInstance(mNote);
+        public void onDeleteButtonClick() {
+            DialogFragment deleteNoteDialogFragment = DeleteNoteDialogFragment.newInstance(mNote.getId());
             deleteNoteDialogFragment.setTargetFragment(NotesFragment.this, 1);
             deleteNoteDialogFragment.show(getFragmentManager(), deleteNoteDialogFragment.getClass().getName());
         }
 
-        public void onChangeButtonClick(View view) {
-
+        public void onChangeButtonClick() {
+            Intent intent = new Intent(getActivity(), AddNoteActivity.class);
+            intent.putExtra(AddNoteActivity.CHANGEABLE_NOTE ,mNote);
+            startActivity(intent);
         }
 
         public void bind(Note note) {
