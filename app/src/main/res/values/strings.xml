@@ -14,4 +14,11 @@
     <string name="delete_note_dialog_question"> Do you really want to delete this note?</string>
     <string name="delete_note_dialog_positive_button">Yes</string>
     <string name="delete_note_dialog_negative_button">No</string>
+    <string name="note_label">Note</string>
+    <string name="project_label">Project</string>
+    <string-array name="add_project_test">
+        <item>Project 1</item>
+        <item>Project 2</item>
+        <item>Project 3</item>
+    </string-array>
 </resources>
