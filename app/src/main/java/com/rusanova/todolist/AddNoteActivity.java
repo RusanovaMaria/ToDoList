@@ -3,6 +3,7 @@ package com.rusanova.todolist;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -10,10 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivity extends AppCompatActivity implements ListProjectDialogFragment.ChangeProjectListener {
+    public static final int LIST_REQUEST_CODE = 1;
     public static String CHANGEABLE_NOTE = "changeable note";
+    public static String PROJECT = "project";
+    private TextView mProjectNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,8 @@ public class AddNoteActivity extends AppCompatActivity {
         actionbar.setTitle("");
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        mProjectNameTextView = (TextView) findViewById(R.id.project_name);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,15 +44,13 @@ public class AddNoteActivity extends AppCompatActivity {
         projectGroupLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view){
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Пора покормить кота!",
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                DialogFragment dialogFragment = new ListProjectDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), dialogFragment.getClass().getName());
             }
         });
 
         setFragment();
-        extractAndSetDataIfItIsPossible(savedInstanceState);
+        extractAndSetDataIfItIsPossible();
     }
 
     private void setFragment() {
@@ -56,13 +60,27 @@ public class AddNoteActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void extractAndSetDataIfItIsPossible(Bundle savedInstanceState) {
+    private void extractAndSetDataIfItIsPossible() {
         EditText noteTitle = findViewById(R.id.title_template);
             Bundle extras = getIntent().getExtras();
             if (isNotNull(extras)) {
                 Note changeableNote = (Note) extras.getSerializable(CHANGEABLE_NOTE);
                 noteTitle.setText(changeableNote.getTitle());
         }
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof ListProjectDialogFragment) {
+            ListProjectDialogFragment listProjectDialogFragment = (ListProjectDialogFragment) fragment;
+            listProjectDialogFragment.setListProjectListener(this);
+        }
+    }
+
+    @Override
+    public void changeProject(String projectName) {
+        TextView project = (TextView) findViewById(R.id.project_name);
+        project.setText(projectName);
     }
 
     private boolean isNotNull(Object o) {
