@@ -6,8 +6,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_note">AddNoteActivity</string>
     <string name="add_note_hint">напр., записаться к парикмахеру на завтра 17.00</string>
-    <string-array name="add_note_settings_test">
-        <item>Setting 1</item>
+    <string-array name="note_settings_test">
+        <item>Date</item>
         <item>Setting 2</item>
         <item>Setting 3</item>
     </string-array>
@@ -21,4 +21,5 @@
         <item>Project 2</item>
         <item>Project 3</item>
     </string-array>
+    <string name="date_picker_title">Date:</string>
 </resources>

@@ -49,23 +49,31 @@ public class AddNoteActivity extends AppCompatActivity implements ListProjectDia
             }
         });
 
-        setFragment();
-        extractAndSetDataIfItIsPossible();
+        Note note = getNoteData();
+        setNoteDate(note);
+        setSettingsFragment(note);
     }
 
-    private void setFragment() {
+    private void setSettingsFragment(Note note) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Fragment settingsFragment = new AddNoteSettingsFragment();
+        Fragment settingsFragment = new ListNoteSettingsFragment();
         fragmentTransaction.add(R.id.myfragment, settingsFragment);
         fragmentTransaction.commit();
     }
 
-    private void extractAndSetDataIfItIsPossible() {
-        EditText noteTitle = findViewById(R.id.title_template);
+    private Note getNoteData() {
             Bundle extras = getIntent().getExtras();
             if (isNotNull(extras)) {
                 Note changeableNote = (Note) extras.getSerializable(CHANGEABLE_NOTE);
-                noteTitle.setText(changeableNote.getTitle());
+                return changeableNote;
+        }
+        return null;
+    }
+
+    private void setNoteDate(Note note) {
+        if (isNotNull(note)) {
+            EditText noteTitle = findViewById(R.id.title_template);
+            noteTitle.setText(note.getTitle());
         }
     }
 

@@ -1,8 +1,7 @@
 package com.rusanova.todolist;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-public class AddNoteSettingsFragment extends ListFragment {
-
-    public AddNoteSettingsFragment() {
-
-    }
+public class ListNoteSettingsFragment extends ListFragment {
+    private static final String DATE_DIALOG = "date_dialog";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,8 +21,9 @@ public class AddNoteSettingsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        NoteSettingsLab noteSettingsLab = new NoteSettingsLab(new Note());
         setListAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_activated_1, getResources().getStringArray(R.array.add_note_settings_test)));
+                android.R.layout.simple_list_item_activated_1,getResources().getStringArray(R.array.note_settings_test)));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -37,12 +34,16 @@ public class AddNoteSettingsFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        Fragment fragment = this;
-
+        FragmentManager fragmentManager = getFragmentManager();
         switch (position) {
             case 0:
+             showDateDialog(fragmentManager);
                 break;
         }
+    }
+
+    private void showDateDialog(FragmentManager fragmentManager) {
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.show(fragmentManager, DATE_DIALOG);
     }
 }
