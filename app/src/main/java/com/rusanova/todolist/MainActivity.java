@@ -17,7 +17,6 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
-    private int calledFragmentId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                                 fragmentTransaction.replace(R.id.content_frame, fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
-                                calledFragmentId = 0;
                         }
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
@@ -54,10 +52,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(calledFragmentId == 0) {
                     Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
                     startActivity(intent);
-                }
             }
         });
     }

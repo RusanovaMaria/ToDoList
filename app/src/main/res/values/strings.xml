@@ -22,4 +22,5 @@
         <item>Project 3</item>
     </string-array>
     <string name="date_picker_title">Date:</string>
+    <string name="menu_delete"></string>
 </resources>
