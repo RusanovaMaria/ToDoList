@@ -15,9 +15,7 @@ public class ListProjectDialogFragment extends DialogFragment {
         builder.setTitle(R.string.projects_title)
                 .setItems(R.array.add_project_test, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String[] elements = getResources().getStringArray(R.array.add_project_test);
-                        String projectName = elements[which];
-                        mActivity.changeProject(projectName);
+                        
                     }
                 });
         return builder.create();
