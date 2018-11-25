@@ -15,24 +15,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class AddNoteActivity extends AppCompatActivity implements ListProjectDialogFragment.ChangeProjectListener {
-    public static final int LIST_REQUEST_CODE = 1;
+public class AddNoteActivity extends AppCompatActivity {
     public static String CHANGEABLE_NOTE = "changeable note";
-    public static String PROJECT = "project";
-    private TextView mProjectNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
-
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle("");
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
-        mProjectNameTextView = (TextView) findViewById(R.id.project_name);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,15 +31,6 @@ public class AddNoteActivity extends AppCompatActivity implements ListProjectDia
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            }
-        });
-
-        LinearLayout projectGroupLayout = (LinearLayout) findViewById(R.id.project_group_layout);
-        projectGroupLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View view){
-                DialogFragment dialogFragment = new ListProjectDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), dialogFragment.getClass().getName());
             }
         });
 
@@ -69,20 +51,6 @@ public class AddNoteActivity extends AppCompatActivity implements ListProjectDia
             EditText noteTitle = findViewById(R.id.title_template);
             noteTitle.setText(note.getTitle());
         }
-    }
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof ListProjectDialogFragment) {
-            ListProjectDialogFragment listProjectDialogFragment = (ListProjectDialogFragment) fragment;
-            listProjectDialogFragment.setListProjectListener(this);
-        }
-    }
-
-    @Override
-    public void changeProject(String projectName) {
-        TextView project = (TextView) findViewById(R.id.project_name);
-        project.setText(projectName);
     }
 
     @Override

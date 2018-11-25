@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                                 Fragment fragment = new NotesFragment();
                                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.content_frame, fragment);
-                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.addToBackStack(fragment.toString());
                                 fragmentTransaction.commit();
                         }
                         menuItem.setChecked(true);

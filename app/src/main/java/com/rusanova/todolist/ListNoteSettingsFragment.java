@@ -1,6 +1,7 @@
 package com.rusanova.todolist;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -37,7 +38,11 @@ public class ListNoteSettingsFragment extends ListFragment {
         FragmentManager fragmentManager = getFragmentManager();
         switch (position) {
             case 0:
-             showDateDialog(fragmentManager);
+                DialogFragment dialogFragment = new ListProjectDialogFragment();
+                dialogFragment.show(getFragmentManager(), dialogFragment.getClass().getName());
+                break;
+            case 1:
+                showDateDialog(fragmentManager);
                 break;
         }
     }

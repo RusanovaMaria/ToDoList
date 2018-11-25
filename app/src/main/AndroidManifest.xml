@@ -19,7 +19,9 @@
         <activity
             android:name=".AddNoteActivity"
             android:label="@string/title_activity_add_note"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
