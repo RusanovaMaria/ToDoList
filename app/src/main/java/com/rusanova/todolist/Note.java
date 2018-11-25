@@ -9,6 +9,7 @@ public class Note implements Serializable {
     private String mTitle;
     private Date mDate;
     private String mDescription;
+    private String project;
 
     public Note() {
         mId = UUID.randomUUID();
@@ -41,5 +42,13 @@ public class Note implements Serializable {
 
     public void setDescription(String description) {
         this.mDescription = description;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
     }
 }

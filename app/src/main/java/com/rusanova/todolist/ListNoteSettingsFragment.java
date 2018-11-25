@@ -1,5 +1,7 @@
 package com.rusanova.todolist;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +14,10 @@ import android.widget.ListView;
 
 
 public class ListNoteSettingsFragment extends ListFragment {
+    private static final int PROJECT_REQUEST_WEIGHT = 1;
     private static final String DATE_DIALOG = "date_dialog";
+    private static final String PROJECT_VALUE = "project_value";
+    private ArrayAdapter mSettingsListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,9 +27,8 @@ public class ListNoteSettingsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        NoteSettingsLab noteSettingsLab = new NoteSettingsLab(new Note());
-        setListAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_activated_1,getResources().getStringArray(R.array.note_settings_test)));
+        mSettingsListAdapter = new SettingsListAdapter(getContext());
+        setListAdapter(mSettingsListAdapter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -38,8 +42,7 @@ public class ListNoteSettingsFragment extends ListFragment {
         FragmentManager fragmentManager = getFragmentManager();
         switch (position) {
             case 0:
-                DialogFragment dialogFragment = new ListProjectDialogFragment();
-                dialogFragment.show(getFragmentManager(), dialogFragment.getClass().getName());
+                showProjectDialog();
                 break;
             case 1:
                 showDateDialog(fragmentManager);
@@ -47,8 +50,33 @@ public class ListNoteSettingsFragment extends ListFragment {
         }
     }
 
+    private void showProjectDialog() {
+        DialogFragment dialogFragment = new ListProjectDialogFragment();
+        dialogFragment.setTargetFragment(ListNoteSettingsFragment.this, 1);
+        dialogFragment.show(getFragmentManager(), dialogFragment.getClass().getName());
+    }
+
     private void showDateDialog(FragmentManager fragmentManager) {
         DatePickerFragment datePickerFragment = new DatePickerFragment();
         datePickerFragment.show(fragmentManager, DATE_DIALOG);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case PROJECT_REQUEST_WEIGHT:
+                    changeProject(data);
+                    break;
+            }
+        }
+    }
+
+    private void changeProject(Intent data) {
+        String project = data.getStringExtra(ListProjectDialogFragment.PROJECT_CHOICE);
+        Setting projectSetting = (Setting) mSettingsListAdapter.getItem(0);
+        projectSetting.setValue(project);
+        mSettingsListAdapter.notifyDataSetChanged();
     }
 }
