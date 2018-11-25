@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -51,7 +52,7 @@ public class AddNoteActivity extends AppCompatActivity implements ListProjectDia
             }
         });
 
-        Note note = getNoteData();
+        Note note = getChangeableNoteData();
         setNoteDate(note);
         setSettingsFragment(note);
     }
@@ -61,15 +62,6 @@ public class AddNoteActivity extends AppCompatActivity implements ListProjectDia
         Fragment settingsFragment = new ListNoteSettingsFragment();
         fragmentTransaction.add(R.id.myfragment, settingsFragment);
         fragmentTransaction.commit();
-    }
-
-    private Note getNoteData() {
-            Bundle extras = getIntent().getExtras();
-            if (isNotNull(extras)) {
-                Note changeableNote = (Note) extras.getSerializable(CHANGEABLE_NOTE);
-                return changeableNote;
-        }
-        return null;
     }
 
     private void setNoteDate(Note note) {
@@ -93,17 +85,46 @@ public class AddNoteActivity extends AppCompatActivity implements ListProjectDia
         project.setText(projectName);
     }
 
-    private boolean isNotNull(Object o) {
-        if(o != null) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.note_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_item:
+                    deleteNote();
+                    this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void deleteNote() {
+        Note note = getChangeableNoteData();
+        NoteLab noteLab = NoteLab.get(AddNoteActivity.this);
+        if(isNotNull(note)) {
+            noteLab.deleteNote(note.getId());
+        }
+    }
+
+    private Note getChangeableNoteData() {
+        Bundle extras = getIntent().getExtras();
+        if (isNotNull(extras)) {
+            Note changeableNote = (Note) extras.getSerializable(CHANGEABLE_NOTE);
+            return changeableNote;
+        }
+        return null;
+    }
+
+    private boolean isNotNull(Object o) {
+        if(o != null) {
+            return true;
+        }
+        return false;
     }
 }

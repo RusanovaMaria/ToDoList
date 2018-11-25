@@ -33,6 +33,12 @@ public class NotesFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {

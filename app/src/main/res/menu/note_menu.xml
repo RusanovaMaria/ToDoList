@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/note_menu"
+        android:id = "@+id/delete_item"
         android:icon = "@drawable/ic_delete"
         android:title="@string/menu_delete"
         app:showAsAction="ifRoom|withText"/>
