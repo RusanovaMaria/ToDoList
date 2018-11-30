@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,10 +17,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddNoteActivityActivity"
+            android:name=".controller.note.AddNoteActivity"
             android:label="@string/title_activity_add_note"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".controller.MainActivity">
         </activity>
     </application>
 

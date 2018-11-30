@@ -1,4 +1,6 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.model.settingdata;
+
+import com.rusanova.todolist.model.notedata.Note;
 
 import java.util.ArrayList;
 import java.util.List;

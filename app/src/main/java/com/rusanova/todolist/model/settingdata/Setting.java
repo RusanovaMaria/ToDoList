@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.model.settingdata;
 
 public class Setting {
     private String mTitle;
