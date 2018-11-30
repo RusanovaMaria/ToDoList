@@ -78,5 +78,11 @@ public class ListNoteSettingsFragment extends ListFragment {
         Setting projectSetting = (Setting) mSettingsListAdapter.getItem(0);
         projectSetting.setValue(project);
         mSettingsListAdapter.notifyDataSetChanged();
+        NoteSettingActivity noteSettingActivity = (NoteSettingActivity) getActivity();
+        noteSettingActivity.setProjectSetting(project);
+    }
+
+    public interface NoteSettingActivity {
+        void setProjectSetting(String projectSetting);
     }
 }

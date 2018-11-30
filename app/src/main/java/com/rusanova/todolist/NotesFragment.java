@@ -102,8 +102,8 @@ public class NotesFragment extends Fragment {
         }
 
         public void onChangeButtonClick() {
-            Intent intent = new Intent(getActivity(), AddNoteActivity.class);
-            intent.putExtra(AddNoteActivity.CHANGEABLE_NOTE ,mNote);
+            Intent intent = new Intent(getActivity(), AddNoteActivityActivity.class);
+            intent.putExtra(AddNoteActivityActivity.CHANGEABLE_NOTE ,mNote);
             startActivity(intent);
         }
 
@@ -111,15 +111,12 @@ public class NotesFragment extends Fragment {
             mNote = note;
             mTitleTextView.setText(mNote.getTitle());
             mDateTextView.setText(mNote.getDate().toString());
-            mDescriptionTextView.setText(mNote.getDescription());
+            mDescriptionTextView.setText(mNote.getDescription().toString());
         }
 
         @Override
         public void onClick(View view) {
-            SingleNoteFragment fragment = SingleNoteFragment.newInstance
-                    (mTitleTextView.getText().toString(),
-                            mDateTextView.getText().toString(),
-                            mDescriptionTextView.getText().toString());
+            SingleNoteFragment fragment = SingleNoteFragment.newInstance(mNote);
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, fragment);
             fragmentTransaction.addToBackStack(null);

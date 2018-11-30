@@ -3,53 +3,54 @@ package com.rusanova.todolist;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivityActivity extends AppCompatActivity implements ListNoteSettingsFragment.NoteSettingActivity {
     public static String CHANGEABLE_NOTE = "changeable note";
+    private Note mNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
+        final EditText noteTitle = findViewById(R.id.title_template);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String noteTile =  noteTitle.getText().toString();
+                if (isNotNull(noteTile)) {
+                    mNote.setTitle(noteTile);
+                }
+                AddNoteActivityActivity.this.finish();
             }
         });
 
         Note note = getChangeableNoteData();
-        setNoteDate(note);
-        setSettingsFragment(note);
+        mNote = note;
+        setNoteDate(noteTitle);
+        setSettingsFragment();
     }
 
-    private void setSettingsFragment(Note note) {
+    private void setSettingsFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment settingsFragment = new ListNoteSettingsFragment();
         fragmentTransaction.add(R.id.myfragment, settingsFragment);
         fragmentTransaction.commit();
     }
 
-    private void setNoteDate(Note note) {
-        if (isNotNull(note)) {
-            EditText noteTitle = findViewById(R.id.title_template);
-            noteTitle.setText(note.getTitle());
+    private void setNoteDate(EditText noteTitle) {
+        if (isNotNull(mNote)) {
+            noteTitle.setText(mNote.getTitle());
         }
     }
 
@@ -74,7 +75,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
     private void deleteNote() {
         Note note = getChangeableNoteData();
-        NoteLab noteLab = NoteLab.get(AddNoteActivity.this);
+        NoteLab noteLab = NoteLab.get(AddNoteActivityActivity.this);
         if(isNotNull(note)) {
             noteLab.deleteNote(note.getId());
         }
@@ -94,5 +95,10 @@ public class AddNoteActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setProjectSetting(String projectSetting) {
+        mNote.setProject(projectSetting);
     }
 }
