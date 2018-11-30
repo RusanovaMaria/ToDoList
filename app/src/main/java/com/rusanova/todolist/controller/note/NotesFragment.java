@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller.note;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.rusanova.todolist.R;
+import com.rusanova.todolist.controller.notesetting.notesettingdialog.DeleteNoteDialogFragment;
+import com.rusanova.todolist.model.notedata.Note;
+import com.rusanova.todolist.model.notedata.NoteLab;
 
 import java.util.List;
 
@@ -58,10 +63,17 @@ public class NotesFragment extends Fragment {
     }
 
     private void updateUI() {
+
         NoteLab noteLab = NoteLab.get(getActivity());
         List<Note> notes = noteLab.getNotes();
-        mNoteAdapter = new NoteAdapter(notes);
-        mAddFragmentRecyclerView.setAdapter(mNoteAdapter);
+
+        if (mNoteAdapter == null) {
+            mNoteAdapter = new NoteAdapter(notes);
+            mAddFragmentRecyclerView.setAdapter(mNoteAdapter);
+        } else {
+            mNoteAdapter.setCrimes(notes);
+            mNoteAdapter.notifyDataSetChanged();
+        }
     }
 
     private class NoteHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -102,8 +114,8 @@ public class NotesFragment extends Fragment {
         }
 
         public void onChangeButtonClick() {
-            Intent intent = new Intent(getActivity(), AddNoteActivityActivity.class);
-            intent.putExtra(AddNoteActivityActivity.CHANGEABLE_NOTE ,mNote);
+            Intent intent = new Intent(getActivity(), AddNoteActivity.class);
+            intent.putExtra(AddNoteActivity.CHANGEABLE_NOTE ,mNote);
             startActivity(intent);
         }
 
@@ -146,6 +158,10 @@ public class NotesFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mNotes.size();
+        }
+
+        public void setCrimes(List<Note> notes) {
+            mNotes = notes;
         }
     }
 }

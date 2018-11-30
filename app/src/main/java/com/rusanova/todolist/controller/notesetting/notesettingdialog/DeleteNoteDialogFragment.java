@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller.notesetting.notesettingdialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+
+import com.rusanova.todolist.R;
+import com.rusanova.todolist.model.notedata.NoteLab;
 
 import java.util.UUID;
 

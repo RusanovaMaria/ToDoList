@@ -1,8 +1,7 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller.note;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-public class AddNoteActivityActivity extends AppCompatActivity implements ListNoteSettingsFragment.NoteSettingActivity {
+import com.rusanova.todolist.R;
+import com.rusanova.todolist.controller.notesetting.ListNoteSettingsFragment;
+import com.rusanova.todolist.model.notedata.Note;
+import com.rusanova.todolist.model.notedata.NoteLab;
+
+public class AddNoteActivity extends AppCompatActivity implements ListNoteSettingsFragment.NoteSettingActivity {
     public static String CHANGEABLE_NOTE = "changeable note";
     private Note mNote;
 
@@ -27,11 +31,11 @@ public class AddNoteActivityActivity extends AppCompatActivity implements ListNo
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String noteTile =  noteTitle.getText().toString();
+                String noteTile = noteTitle.getText().toString();
                 if (isNotNull(noteTile)) {
                     mNote.setTitle(noteTile);
                 }
-                AddNoteActivityActivity.this.finish();
+                AddNoteActivity.this.finish();
             }
         });
 
@@ -65,8 +69,8 @@ public class AddNoteActivityActivity extends AppCompatActivity implements ListNo
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_item:
-                    deleteNote();
-                    this.finish();
+                deleteNote();
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -75,8 +79,8 @@ public class AddNoteActivityActivity extends AppCompatActivity implements ListNo
 
     private void deleteNote() {
         Note note = getChangeableNoteData();
-        NoteLab noteLab = NoteLab.get(AddNoteActivityActivity.this);
-        if(isNotNull(note)) {
+        NoteLab noteLab = NoteLab.get(AddNoteActivity.this);
+        if (isNotNull(note)) {
             noteLab.deleteNote(note.getId());
         }
     }
@@ -91,7 +95,7 @@ public class AddNoteActivityActivity extends AppCompatActivity implements ListNo
     }
 
     private boolean isNotNull(Object o) {
-        if(o != null) {
+        if (o != null) {
             return true;
         }
         return false;
@@ -102,3 +106,5 @@ public class AddNoteActivityActivity extends AppCompatActivity implements ListNo
         mNote.setProject(projectSetting);
     }
 }
+
+

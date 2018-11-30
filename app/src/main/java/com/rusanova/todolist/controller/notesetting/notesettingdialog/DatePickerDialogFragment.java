@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller.notesetting.notesettingdialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 
+import com.rusanova.todolist.R;
+
 import java.util.Date;
 
-public class DatePickerFragment extends DialogFragment {
+public class DatePickerDialogFragment extends DialogFragment {
     private static final String ARG_DATE = "date";
     private DatePicker mDatePicker;
 

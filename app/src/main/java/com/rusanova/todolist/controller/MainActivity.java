@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.rusanova.todolist.R;
+import com.rusanova.todolist.controller.note.AddNoteActivity;
+import com.rusanova.todolist.controller.note.NotesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(MainActivity.this, AddNoteActivityActivity.class);
+                    Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
                     startActivity(intent);
             }
         });

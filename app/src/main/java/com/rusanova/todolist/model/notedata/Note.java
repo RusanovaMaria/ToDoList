@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.model.notedata;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +12,11 @@ public class Note implements Serializable {
     private String project;
 
     public Note() {
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Note(UUID id) {
+        mId = id;
         mDate = new Date();
     }
 

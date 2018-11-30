@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller.notesetting;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.rusanova.todolist.controller.notesetting.notesettingdialog.DatePickerDialogFragment;
+import com.rusanova.todolist.controller.notesetting.notesettingdialog.ListProjectDialogFragment;
+import com.rusanova.todolist.model.settingdata.Setting;
 
 
 public class ListNoteSettingsFragment extends ListFragment {
@@ -57,8 +61,8 @@ public class ListNoteSettingsFragment extends ListFragment {
     }
 
     private void showDateDialog(FragmentManager fragmentManager) {
-        DatePickerFragment datePickerFragment = new DatePickerFragment();
-        datePickerFragment.show(fragmentManager, DATE_DIALOG);
+        DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
+        datePickerDialogFragment.show(fragmentManager, DATE_DIALOG);
     }
 
     @Override

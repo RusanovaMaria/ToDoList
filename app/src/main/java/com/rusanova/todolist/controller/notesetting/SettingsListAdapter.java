@@ -1,4 +1,4 @@
-package com.rusanova.todolist;
+package com.rusanova.todolist.controller.notesetting;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.rusanova.todolist.R;
+import com.rusanova.todolist.model.settingdata.Setting;
 
 public class SettingsListAdapter extends ArrayAdapter<Setting> {
 
