@@ -1,10 +1,10 @@
-package com.rusanova.todolist.database;
+package com.rusanova.todolist.model.notedata.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.rusanova.todolist.database.NoteDbSchema.NoteTable;
+import com.rusanova.todolist.model.notedata.database.NoteDbSchema.NoteTable;
 
 public class NoteBaseHelper extends SQLiteOpenHelper {
 

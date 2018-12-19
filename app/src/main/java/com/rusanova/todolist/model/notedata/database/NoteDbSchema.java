@@ -1,4 +1,4 @@
-package com.rusanova.todolist.database;
+package com.rusanova.todolist.model.notedata.database;
 
 public class NoteDbSchema {
     public static final class NoteTable {

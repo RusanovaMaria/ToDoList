@@ -1,4 +1,4 @@
-package com.rusanova.todolist.database;
+package com.rusanova.todolist.model.notedata.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;

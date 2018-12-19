@@ -9,13 +9,14 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 import com.rusanova.todolist.R;
+import com.rusanova.todolist.model.notedata.Note;
 import com.rusanova.todolist.model.notedata.NoteLab;
 
 import java.util.UUID;
 
 public class DeleteNoteDialogFragment extends DialogFragment {
     public static final String NOTE_WAS_DELETED = "delete note";
-    public static final String NOTE_ID = "note_id";
+    public static final String NOTE = "note";
 
 
     @Override
@@ -38,11 +39,11 @@ public class DeleteNoteDialogFragment extends DialogFragment {
 
     private void deleteNote() {
         NoteLab noteLab = NoteLab.get(getActivity());
-        UUID id = (UUID) getArguments().getSerializable(NOTE_ID);
-        if(id != null) {
-            noteLab.deleteNote(id);
+        Note note = (Note) getArguments().getSerializable(NOTE);
+        if(note != null) {
+            noteLab.deleteNote(note);
         } else {
-            throw new NullPointerException("Значение id равно не определено");
+            throw new NullPointerException("Значение id равно неопределено");
         }
     }
 
@@ -52,10 +53,10 @@ public class DeleteNoteDialogFragment extends DialogFragment {
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
     }
 
-    public static DialogFragment newInstance(UUID id) {
+    public static DialogFragment newInstance(Note note) {
         DialogFragment myDialogFragment = new DeleteNoteDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(NOTE_ID, id);
+        args.putSerializable(NOTE, note);
         myDialogFragment.setArguments(args);
 
         return myDialogFragment;

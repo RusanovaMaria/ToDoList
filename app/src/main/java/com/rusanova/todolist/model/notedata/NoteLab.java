@@ -5,9 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.rusanova.todolist.database.NoteBaseHelper;
-import com.rusanova.todolist.database.NoteCursorWrapper;
-import com.rusanova.todolist.database.NoteDbSchema;
+import com.rusanova.todolist.model.notedata.database.NoteBaseHelper;
+import com.rusanova.todolist.model.notedata.database.NoteCursorWrapper;
+import com.rusanova.todolist.model.notedata.database.NoteDbSchema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +46,9 @@ public class NoteLab {
         return crimes;
     }
 
-    public void deleteNote(UUID id) {
-
+    public void deleteNote(Note note) {
+        ContentValues values = getContentValues(note);
+        mDatabase.delete(NoteDbSchema.NoteTable.NAME, NoteDbSchema.NoteTable.Cols.UUID +"="+note.getId().toString(), null);
     }
 
     public void addNote(Note note) {

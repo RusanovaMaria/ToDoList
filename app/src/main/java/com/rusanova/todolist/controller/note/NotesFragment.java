@@ -108,7 +108,7 @@ public class NotesFragment extends Fragment {
         }
 
         public void onDeleteButtonClick() {
-            DialogFragment deleteNoteDialogFragment = DeleteNoteDialogFragment.newInstance(mNote.getId());
+            DialogFragment deleteNoteDialogFragment = DeleteNoteDialogFragment.newInstance(mNote);
             deleteNoteDialogFragment.setTargetFragment(NotesFragment.this, 1);
             deleteNoteDialogFragment.show(getFragmentManager(), deleteNoteDialogFragment.getClass().getName());
         }

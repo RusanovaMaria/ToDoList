@@ -15,15 +15,18 @@ import com.rusanova.todolist.R;
 import com.rusanova.todolist.controller.notesetting.ListNoteSettingsFragment;
 import com.rusanova.todolist.model.notedata.Note;
 import com.rusanova.todolist.model.notedata.NoteLab;
+import com.rusanova.todolist.model.settingdata.Setting;
 
 public class AddNoteActivity extends AppCompatActivity implements ListNoteSettingsFragment.NoteSettingActivity {
     public static String CHANGEABLE_NOTE = "changeable note";
     private Note mNote;
+    private static Setting mProjectSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        mProjectSetting = new Setting("Дата", "");
 
         final EditText noteTitle = findViewById(R.id.title_template);
 
@@ -33,6 +36,9 @@ public class AddNoteActivity extends AppCompatActivity implements ListNoteSettin
             public void onClick(View view) {
                 String noteTile = noteTitle.getText().toString();
                 if (isNotNull(noteTile)) {
+                    mNote.setTitle(noteTile);
+                } else {
+                    mNote = new Note();
                     mNote.setTitle(noteTile);
                 }
                 AddNoteActivity.this.finish();
@@ -81,7 +87,7 @@ public class AddNoteActivity extends AppCompatActivity implements ListNoteSettin
         Note note = getChangeableNoteData();
         NoteLab noteLab = NoteLab.get(AddNoteActivity.this);
         if (isNotNull(note)) {
-            noteLab.deleteNote(note.getId());
+            noteLab.deleteNote(note);
         }
     }
 
@@ -102,8 +108,9 @@ public class AddNoteActivity extends AppCompatActivity implements ListNoteSettin
     }
 
     @Override
-    public void setProjectSetting(String projectSetting) {
-        mNote.setProject(projectSetting);
+    public void setProjectSetting(String project) {
+
+        mProjectSetting.setValue(project);
     }
 }
 
